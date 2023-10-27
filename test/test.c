@@ -94,11 +94,17 @@ static int	count_words(const char *str)
 			count++;
 			// If the character is not a space or it is inside quotes, keep counting.
 			while ((str[index] != ' ' || sq != 0) && str[index] != '\0')
+			//while (sq != 0 && str[index] != '\0')
 			{
 				if (dq == 0 && (str[index] == '\"' || str[index] == '\''))
+				{
 					dq = str[index];
+					printf("%d\n", dq);
+				}
 				sq = (sq + (str[index] == dq)) % 2;
 				dq *= (sq != 0);
+				printf("%d\n", sq);
+				printf("%d\n", dq);
 				index++;
 			}
 			// If quotes are not balanced, return error.
@@ -114,8 +120,10 @@ static int	count_words(const char *str)
 int	main(void)
 {
 	//char	*str = " a b 'c'd e\"f\"g h   ";
-	char	*str = " \"\" \"\" \"\" \"\" \"\"  ";
+	char	*str = "  \"hi\" \"hi\" \"hi\" \"hi\" \"hi\"  ";
 
 	printf("%d\n", count_words(str));
+	printf("single:%d\n", '\'');
+	printf("double:%d\n", '\"');
 	return (0);
 }

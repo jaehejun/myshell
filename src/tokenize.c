@@ -6,7 +6,7 @@
 /*   By: jaehejun <jaehejun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:11:50 by jaehejun          #+#    #+#             */
-/*   Updated: 2023/10/27 19:51:05 by jaehejun         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:46:35 by jaehejun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	count_tokens(char *line)
 {
-	int	index;
+	int	idx;
 	int	token_count;
 	int	s_quotes;
 	int	d_quotes;
@@ -23,10 +23,10 @@ int	count_tokens(char *line)
 	token_count = 0;
 	s_quotes = 0;
 	d_quotes = 0;
-	while (line[index] != '\0')
+	while (line[idx] != '\0')
 	{
 		while (line[idx] == ' ')
-			index++;
+			idx++;
 		if (line[idx] == '\'')
 		{
 			idx++;

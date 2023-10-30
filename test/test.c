@@ -6,7 +6,7 @@
 /*   By: jaehejun <jaehejun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 17:42:49 by jaehejun          #+#    #+#             */
-/*   Updated: 2023/10/30 22:26:00 by jaehejun         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:49:14 by jaehejun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,27 @@ int	count_tokens(char *str)
 	{
 		while (is_space(str[idx]) == TRUE && str[idx] != '\0') // skip space
 			idx++;
-		if (str[idx] != '\0') // oper or word
+		if (is_oper(str[idx]) == TRUE && str[idx] != '\0') //oper
 		{
-			if (is_oper(str[idx]) == TRUE) //oper
+			printf("%c\n", str[idx]);
+			count++;
+			while (is_oper(str[idx]) == TRUE && str[idx] != '\0') // oper continues
 			{
-				printf("%c\n", str[idx]);
-				count++;
-				while (is_oper(str[idx]) == TRUE && str[idx] != '\0') // oper continues
+				idx++;
+				if (str[idx] == '|')
+				{
+					printf("PIPE: %c\n", str[idx]);
+					count++;
 					idx++;
+				}
 			}
-			else // word
-			{
-				printf("%c\n", str[idx]);
-				count++;
-				while (is_meta(str[idx]) == FALSE && str[idx] != '\0') // word continues
-					idx++;
-			}
+		}
+		if (is_meta(str[idx]) == FALSE && str[idx] != '\0') // word
+		{
+			printf("%c\n", str[idx]);
+			count++;
+			while (is_meta(str[idx]) == FALSE && str[idx] != '\0') // word continues
+				idx++;
 		}
 	}
 	return (count);
@@ -86,7 +91,7 @@ int	count_tokens(char *str)
 
 int	main(void)
 {
-	char	*str = "  ab  <cd  |ef <<< g>>h i ";
+	char	*str = "  ab  <cd  |ef <<a|< g>>>h i ";
 
 	printf("%d\n", count_tokens(str));
 	printf("single:%d\n", '\'');

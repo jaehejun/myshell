@@ -6,7 +6,7 @@
 /*   By: jaehejun <jaehejun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 17:42:49 by jaehejun          #+#    #+#             */
-/*   Updated: 2023/10/28 20:15:18 by jaehejun         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:26:00 by jaehejun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 #define FALSE 0
 #define OPEN 1
 #define CLOSED 0
+
+int	is_meta(char c);
+int	is_space(char c);
+int	is_oper(char c);
 
 int	is_meta(char c)
 {
@@ -57,35 +61,34 @@ int	count_tokens(char *str)
 	count = 0;
 	while (str[idx] != '\0')
 	{
-		while (is_space(str[idx]) == TRUE && str[idx] != '\0')
+		while (is_space(str[idx]) == TRUE && str[idx] != '\0') // skip space
 			idx++;
-		if (str[idx] != '\0')
-			count++;
-		while (is_space(str[idx]) == FALSE && is_oper(str[idx]) == FALSE && str[idx] != '\0')
-			idx++;
+		if (str[idx] != '\0') // oper or word
+		{
+			if (is_oper(str[idx]) == TRUE) //oper
+			{
+				printf("%c\n", str[idx]);
+				count++;
+				while (is_oper(str[idx]) == TRUE && str[idx] != '\0') // oper continues
+					idx++;
+			}
+			else // word
+			{
+				printf("%c\n", str[idx]);
+				count++;
+				while (is_meta(str[idx]) == FALSE && str[idx] != '\0') // word continues
+					idx++;
+			}
+		}
 	}
 	return (count);
 }
 
-if (str[i] == '\0' && (if current))
-	count++;
-if (is_oper(str[i - 1]) == TRUE && status == CLOSED && is_oper(str[i]) == TRUE)
-	i++;
-if (is_oper(str[i - 1] == TRUE) && is_oper(str[i]) == FALSE)
-	count++;
-if (is_quote(str[i]) == TRUE && status == CLOSED)
-{
-	status = OPEN;
-	while (str[i] != '\0' && )
-}
-
-
 int	main(void)
 {
-	//char	*str = " a b 'c'd e\"f\"g h   ";
-	char	*str = "  \"hi\"\"ho\"\'hh\'  \"hi\" \"hi\" \"hi\" \"hi\"  ";
+	char	*str = "  ab  <cd  |ef <<< g>>h i ";
 
-	printf("%d\n", count_words(str));
+	printf("%d\n", count_tokens(str));
 	printf("single:%d\n", '\'');
 	printf("double:%d\n", '\"');
 	return (0);
